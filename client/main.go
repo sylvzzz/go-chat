@@ -29,6 +29,8 @@ func main() {
 		fmt.Println("Something went wrong please try again ...")
 	}
 
+	fmt.Printf("Me: ")
+
 	go func() {
 		serverScanner := bufio.NewScanner(connection)
 
@@ -42,6 +44,7 @@ func main() {
 	}()
 
 	for scanner.Scan() {
+		fmt.Printf("Me: ")
 		message := scanner.Text()
 		if message == "exit" {
 			break

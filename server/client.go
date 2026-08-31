@@ -14,6 +14,11 @@ func handleClient(connection net.Conn, messages chan client, srv *server) {
 	scanner.Scan()
 	username := strings.TrimSpace(scanner.Text())
 
+	if username == "" {
+		connection.Close()
+		return
+	}
+
 	fmt.Printf("%v joined ...\n", username)
 
 	for scanner.Scan() {

@@ -12,7 +12,7 @@ func broadcast(srv *server, messages chan client) {
 			if connection == msg.connection {
 				continue
 			}
-			fmt.Fprintf(connection, "%v\n", msg)
+			fmt.Fprintf(connection, "%v\n", msg.message)
 		}
 		srv.mutex.Unlock()
 	}
