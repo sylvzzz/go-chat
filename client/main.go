@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+
 func main() {
 	connection, err := net.Dial("tcp", "localhost:8080")
 
@@ -42,6 +43,9 @@ func main() {
 
 	for scanner.Scan() {
 		message := scanner.Text()
+		if message == "exit" {
+			break
+		}
 		fmt.Fprintf(connection, "%v\n", message)
 	}
 }

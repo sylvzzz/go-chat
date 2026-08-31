@@ -12,8 +12,13 @@ type server struct {
     mutex   sync.Mutex
 }
 
+type client struct {
+    connection net.Conn
+    message		string
+}
+
 func main() {
-	messages := make(chan string)
+	messages := make(chan client)
 	listener, err := net.Listen("tcp", ":8080")
 	srv := &server{clients: make(map[net.Conn]any)}
 	

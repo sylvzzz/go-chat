@@ -7,7 +7,8 @@ import (
 	"strings"
 	)
 
-func handleClient(connection net.Conn, messages chan string, srv *server) {
+
+func handleClient(connection net.Conn, messages chan client, srv *server) {
 	scanner := bufio.NewScanner(connection)
 
 	scanner.Scan()
@@ -19,19 +20,19 @@ func handleClient(connection net.Conn, messages chan string, srv *server) {
 		input := strings.TrimSpace(scanner.Text())
 
 		if input == "exit" {
-			messages <- username + " left the chat...\n"
+			messages <- client{connection: connection, message: username + " left the chat...\n"}
 			break
 		}
 
 		message := username + ": " + input
-		fmt.Println( message)
-		messages <- message
+		fmt.Println(message)
+		messages <- client{connection: connection, message: message}
 	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading: ", err)
 	} else {
-		fmt.Printf("%v left the chat ...", username)
+		fmt.Printf("%v left the chat ...\n", username)
 	}
 
 	connection.Close()
