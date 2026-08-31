@@ -12,23 +12,36 @@ func main() {
 	var months []string = []string{"October", "December", "January", "April", "September"}  // literal
 	// var names_alloced = make([]string, 0, 4) this is an array ready with allocated space
 	student := make(map[string]any)
+	var name, age, rank string
 
-	student["name"] = "dbotelho"
-	student["rank"] = "4"
-	student["age"] = "20"
+	fmt.Print("Enter your intra user: ")
+
+	fmt.Scanln(&name)
+	
+	fmt.Print("Enter your age: ")
+
+	fmt.Scanln(&age)
+
+	fmt.Print("Enter your intra rank: ")
+
+	fmt.Scanln(&rank)
+
+	student["name"] = name
+	student["age"] = age
+	student["rank"] = rank
 
 	fmt.Println("=== Standard types ===\n")
 	fmt.Printf(" integers: %v \n floats: %v \n boolean: %v \n strings: %q\n", integers, floats, boolean, strings)
 	fmt.Println("\nHello world!")
 	fmt.Println("The time is", time.Now())
 
-	age, err := strconv.Atoi(student["age"].(string))
+	user_age, err := strconv.Atoi(student["age"].(string))
 
 	if err != nil {
 		fmt.Printf("Invalid age of %v ...", student["age"])
 	}
 
-	if age < 21 {
+	if user_age < 21 {
 		fmt.Printf("\n%v is one of the youngest students in 42 Lisbon with %v years of age, he´s also Rank %v\n", student["name"], student["age"], student["rank"])
 	}
 
