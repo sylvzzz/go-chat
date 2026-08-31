@@ -1,12 +1,13 @@
 NAME = go-chat
 
 compile:
-		go build
+		cd server; make; cd ../client; make
 
-run:
-	@./$(NAME)
+server:
+		cd server && make run
+
+client:
+		cd client && make run
 
 clean:
-	rm -f $(NAME)
-
-re: clean compile run
+		cd server; rm $(NAME); cd ../client; rm $(NAME)

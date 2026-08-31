@@ -10,11 +10,10 @@ import (
 func handleClient(connection net.Conn, messages chan string, srv *server) {
 	scanner := bufio.NewScanner(connection)
 
-	fmt.Fprint(connection, "Enter your username: ")
 	scanner.Scan()
 	username := strings.TrimSpace(scanner.Text())
 
-	fmt.Printf("%v joined ...", username)
+	fmt.Printf("%v joined ...\n", username)
 
 	for scanner.Scan() {
 		input := strings.TrimSpace(scanner.Text())
