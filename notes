@@ -1,0 +1,25 @@
+go channels
+go coroutines
+connection object to indetify each client (Each net.Conn is a unique object. You could just use the connection itself as the key — map[net.Conn]bool or map[net.Conn]string (where the value is their nickname).)
+
+1. Start the server:
+- net.Listen("tcp", ":8080") — opens the port
+- listener.Accept() — blocks, returns a net.Conn when someone connects
+2. Read from a client:
+- bufio.NewScanner(conn) — wraps the connection for easy line reading
+- scanner.Scan() — reads one line (blocks until data arrives)
+- scanner.Text() — returns the line as a string
+3. Send to a client:
+- fmt.Fprintf(conn, "message\n") — writes a string to the connection
+4. Close:
+- conn.Close() — clean up when done
+5. Concurrency:
+- ch := make(chan string) — create a channel
+- ch <- msg — send into channel
+- msg := <-ch — receive from channel (blocks)
+- go func() { ... }() — launch a goroutine
+6. Thread safety:
+- var mu sync.Mutex — declare a mutex
+- mu.Lock() / mu.Unlock() — protect shared data
+7. Cleanup on interrupt:
+- os signal.Notify(ch, os.Interrupt) — catch Ctrl+C
