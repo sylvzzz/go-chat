@@ -23,3 +23,7 @@ connection object to indetify each client (Each net.Conn is a unique object. You
 - mu.Lock() / mu.Unlock() — protect shared data
 7. Cleanup on interrupt:
 - os signal.Notify(ch, os.Interrupt) — catch Ctrl+C
+
+messages <- "hello" — arrow points into the channel = send
+msg := <-messages — arrow comes out of the channel = receive
+channels are FIFO

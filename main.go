@@ -8,12 +8,15 @@ import (
 
 func main() {
 	clients := make(map[net.Conn]any)
+	messages := make(chan string)
 	listener, err := net.Listen("tcp", ":8080")
 	
 	if err != nil {
 		fmt.Println("Something went wrong starting the server...")
 		os.Exit(1)
 	}
+
+	go broadcast(clients, messages)
 
 	for {
 		connection, err := listener.Accept()
@@ -23,7 +26,7 @@ func main() {
 			fmt.Println("Please try again.")
 		}
 
-		go handleClient(connection)
+		go handleClient(connection, messages)
 
 		clients[connection] = true
 	}
