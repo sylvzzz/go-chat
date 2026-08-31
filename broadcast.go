@@ -2,14 +2,15 @@ package main
 
 import (
 		"fmt"
-		"net"
 		)
 
-func broadcast(clients map[net.Conn]any, messages chan string) {
+func broadcast(srv *server, messages chan string) {
 	for {
 		msg := <-messages
-		for connection := range clients {
+		srv.mutex.Lock()
+		for connection := range srv.clients {
 			fmt.Fprintf(connection, "%v\n", msg)
 		}
+		srv.mutex.Unlock()
 	}
 }

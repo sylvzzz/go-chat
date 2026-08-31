@@ -4,19 +4,27 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"sync"
 )
 
+type server struct {
+    clients map[net.Conn]any
+    mutex   sync.Mutex
+}
+
 func main() {
-	clients := make(map[net.Conn]any)
 	messages := make(chan string)
 	listener, err := net.Listen("tcp", ":8080")
+	srv := &server{clients: make(map[net.Conn]any)}
 	
 	if err != nil {
 		fmt.Println("Something went wrong starting the server...")
 		os.Exit(1)
 	}
 
-	go broadcast(clients, messages)
+	fmt.Println("Server started ...")
+
+	go broadcast(srv, messages)
 
 	for {
 		connection, err := listener.Accept()
@@ -26,8 +34,10 @@ func main() {
 			fmt.Println("Please try again.")
 		}
 
-		go handleClient(connection, messages)
+		go handleClient(connection, messages, srv)
 
-		clients[connection] = true
+		srv.mutex.Lock()
+		srv.clients[connection] = true
+		srv.mutex.Unlock()
 	}
 }
