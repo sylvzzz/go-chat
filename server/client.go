@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"net"
 	"strings"
-	)
-
+)
 
 func handleClient(connection net.Conn, messages chan client, srv *server) {
 	scanner := bufio.NewScanner(connection)
@@ -21,11 +20,12 @@ func handleClient(connection net.Conn, messages chan client, srv *server) {
 
 	fmt.Printf("%v joined ...\n", username)
 
+	messages <- client{connection: connection, message: username + " joined the chat..."}
+
 	for scanner.Scan() {
 		input := strings.TrimSpace(scanner.Text())
 
 		if input == "exit" {
-			messages <- client{connection: connection, message: username + " left the chat...\n"}
 			break
 		}
 
@@ -33,6 +33,9 @@ func handleClient(connection net.Conn, messages chan client, srv *server) {
 		fmt.Println(message)
 		messages <- client{connection: connection, message: message}
 	}
+
+	// broadcast the leave on every exit path (explicit exit or dropped connection)
+	messages <- client{connection: connection, message: username + " left the chat..."}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading: ", err)

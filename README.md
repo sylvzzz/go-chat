@@ -10,7 +10,7 @@ A TCP chat server and client written in Go, using only the standard library and 
 ## Layout
 
 - `server/` - the chat server. Listens on `:8080`, accepts clients, and broadcasts each message to everyone else in the room.
-- `client/` - a command line client. Connects to the server, asks for a username, sends what you type, and prints incoming messages.
+- `client/` - a terminal UI (TUI) client built with [tview](https://github.com/rivo/tview). Connects to the server, asks for a username, lets you type messages in an input box at the bottom, and prints incoming messages to the scrolling pane above. `Esc` to quit is handled by the input focus (`Enter` to send, type `exit` to leave).
 
 Both are separate programs with their own `go.mod`.
 
