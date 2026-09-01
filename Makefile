@@ -10,4 +10,4 @@ client:
 		cd client && make run
 
 clean:
-		cd server; rm $(NAME); cd ../client; rm $(NAME)
+		cd server; rm $(NAME); cd ../client; rm $(NAME);
