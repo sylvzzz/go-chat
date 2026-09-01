@@ -2,6 +2,11 @@
 
 A TCP chat server and client written in Go, using only the standard library and the `sync` package.
 
+## Server
+![server](img/server.png)
+## Client
+![client](img/client.png)
+
 ## Layout
 
 - `server/` - the chat server. Listens on `:8080`, accepts clients, and broadcasts each message to everyone else in the room.
