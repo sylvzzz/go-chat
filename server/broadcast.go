@@ -1,9 +1,5 @@
 package main
 
-import (
-		"fmt"
-		)
-
 func broadcast(srv *server, messages chan client) {
 	for {
 		msg := <-messages
@@ -12,7 +8,8 @@ func broadcast(srv *server, messages chan client) {
 			if connection == msg.connection {
 				continue
 			}
-			fmt.Fprintf(connection, "%v\n", msg.message)
+			// transport-agnostic send, TCP and WS both implement it
+			connection.WriteMessage(msg.message)
 		}
 		srv.mutex.Unlock()
 	}

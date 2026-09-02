@@ -4,8 +4,10 @@ A TCP chat server and client written in Go, using only the standard library and 
 
 ## Server
 ![server](img/server.png)
-## Client
+## Client - TUI
 ![client](img/client.png)
+## Web Interface
+![client](img/web.png)
 
 ## Layout
 
@@ -27,23 +29,33 @@ This was my first Go project and my first contact with the language. I already h
 
 ## Running
 
-Open two terminals for clients, plus one for the server. Port `8080` must be free before you start; if an old server is still running, the new one fails to bind and prints an error.
+Open a terminal to start a server. Port `8080` must be free before you start; if an old server is still running, the new one fails to bind and prints an error.
+
+Compiling the programs:
+
+```bash
+make compile
+# or
+make
+```
 
 Terminal 1 (server):
 
 ```bash
-cd server
-make run
+make server
 ```
 
-Terminal 2 and 3 (clients):
+Terminal 2:
 
 ```bash
-cd client
-go run .
+# Chat interface in the terminal
+make tui
+
+# Chat interface as a Web Application
+make web
 ```
 
-Wait for the username prompt, type a name, then start chatting. Type `exit` to leave.
+Wait for the username prompt, type a name, then start chatting. Type `exit` to leave if your on the TUI.
 
 ## Example output
 
