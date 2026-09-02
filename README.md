@@ -1,6 +1,6 @@
 # go-chat
 
-A TCP chat server and client written in Go, using only the standard library and the `sync` package.
+A TCP chat server and client written in Go, using only the standard library, `tview` for TUI and the `sync` package for thread safety(mutexes).
 
 ## Server
 ![server](img/server.png)
