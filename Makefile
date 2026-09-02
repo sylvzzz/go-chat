@@ -16,4 +16,4 @@ web:
 		cd web && npm run dev
 
 clean:
-		cd server; rm $(NAME); cd ../client; rm $(NAME); cd ..; rm -rf web/node_modules/
+		cd server; make clean; cd ../client; make clean; cd ../web; make clean
